@@ -9,6 +9,15 @@ use Carbon\Carbon;
 
 class ArticlesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' =>'create']);
+    }
+
+
+
+
     public function index(){
 
         # This is one way to do a Query, however is too long
@@ -34,6 +43,10 @@ class ArticlesController extends Controller
 
     public function create(){
         
+
+
+
+
         return view('articles.create');
     }
 
