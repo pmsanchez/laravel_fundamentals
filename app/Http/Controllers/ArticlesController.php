@@ -41,8 +41,6 @@ class ArticlesController extends Controller
         
 
 
-
-
         return view('articles.create');
     }
 
@@ -56,6 +54,8 @@ class ArticlesController extends Controller
         \Auth::user()->articles()->save($article);
 
         //Article::create($request->all());
+
+        \Session::flash('flash_message','Your article has been created!');
 
         return redirect('articles');
     }
