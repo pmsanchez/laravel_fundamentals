@@ -38,9 +38,3 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('foo', ['middleware'=>'manager',function()
-{
-
-    return  'this page may only be viewd by managers';
-
-}]);
