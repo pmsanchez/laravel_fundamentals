@@ -28,4 +28,8 @@ Route::get('contact','PagesController@contact');
 #to test...go to php artisan route:list
 Route::resource('articles','ArticlesController');
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 
