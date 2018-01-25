@@ -39,6 +39,7 @@ class ArticlesController extends Controller
     #One MEthod for validation
     public function store(ArticleRequest $request){
 
+        
        
         Article::create($request->all());
 

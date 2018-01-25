@@ -12,7 +12,8 @@ class Article extends Model
 
         'title',
         'body',
-        'published_at'
+        'published_at',
+        'user_id'
 
     ];
 
@@ -41,5 +42,14 @@ class Article extends Model
 
 
 
+    }
+
+    /**
+     * An article is owned by a USER
+     */
+    public function user()
+    {
+
+        return $this->belongsTo('App\User');
     }
 }
