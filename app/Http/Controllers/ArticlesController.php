@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 use App\Article;
+use App\Tag;
 use App\Http\Requests;
 use Request;
 use App\Http\Requests\ArticleRequest;
@@ -37,9 +38,9 @@ class ArticlesController extends Controller
 
     public function create(){
         
+        $tags = Tag::pluck('name','id');
 
-
-        return view('articles.create');
+        return view('articles.create', compact('tags'));
     }
 
 
@@ -47,11 +48,10 @@ class ArticlesController extends Controller
     #One MEthod for validation
     public function store(ArticleRequest $request){
 
-        $article = new Article($request->all()); // user_id
-
-        \Auth::user()->articles()->save($article);
-
-        //Article::create($request->all());
+             
+        $article = \Auth::user()->articles()->create($request->all());
+        
+        $article->tags()->attach($request->input('tag_list'));
 
         \Session::flash('flash_message','Your article has been created!');
 
@@ -62,7 +62,9 @@ class ArticlesController extends Controller
 
     public function edit(Article $article)
     {
-        return view('articles.edit', compact('article'));
+        $tags = Tag::pluck('name','id');
+
+        return view('articles.edit', compact('article','tags'));
     }
 
 
