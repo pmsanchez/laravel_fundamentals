@@ -16,8 +16,6 @@ class ArticlesController extends Controller
     }
 
 
-
-
     public function index(){
 
         # This is one way to do a Query, however is too long

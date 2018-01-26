@@ -37,10 +37,7 @@ class Article extends Model
     //SEtters
     public function setPublishedAtAttribute($date)
     {
-
         $this->attributes['published_at'] = Carbon::createFromFormat('Y-m-d',$date);
-
-
 
     }
 
@@ -52,4 +49,22 @@ class Article extends Model
 
         return $this->belongsTo('App\User');
     }
+
+
+    /**
+     * Get the tags associated with the given article
+     * 
+     * 
+     */
+    public function tags()
+    {
+
+        return $this->belongsToMany('App\Tag')->withTimestamps();
+
+
+
+    }
+
+
+
 }
