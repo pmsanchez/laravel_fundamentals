@@ -47,11 +47,10 @@ class ArticlesController extends Controller
    
     #One MEthod for validation
     public function store(ArticleRequest $request){
-
-             
-        $article = \Auth::user()->articles()->create($request->all());
         
-        $article->tags()->attach($request->input('tag_list'));
+        
+        $this->createArticle($request);
+        //$article->tags()->attach($request->input('tag_list'));
 
         \Session::flash('flash_message','Your article has been created!');
 
@@ -73,9 +72,34 @@ class ArticlesController extends Controller
     {
         $article->update($request->all());
 
+        $article->tags()->sync($request->input('tag_list'));
+
         return redirect('articles');
     }
 
+
+    /**
+     * Sync up the list of tags in the database.
+     *
+     */
+    private function syncTags(Article $article, array $tags)
+    {
+
+        $article->tags()->sync($tags);
+    }
+
+
+
+    private function createArticle(ArticleRequest $request)
+    {
+
+        $article = \Auth::user()->articles()->create($request->all());
+        
+        $this->syncTags($article,$request->input('tag_list'));
+
+        return $article;
+
+    }
 
 }
 
